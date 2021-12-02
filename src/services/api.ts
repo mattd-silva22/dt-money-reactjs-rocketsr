@@ -26,3 +26,4 @@ interface transactionTypes {
     {uid : nanoid(6) , date: "14/08/2021" , type : "deposit" , title : 'compra 1' , category : "shop", amount: 119.00 },
     {uid : nanoid(6) , date: "12/08/2021" , type : "withdrawal" , title : 'compra 1' , category : "shop", amount: 18.57 },
   ]
+

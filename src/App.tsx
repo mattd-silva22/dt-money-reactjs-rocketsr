@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
 import { TransactionTable } from './components/TransactionsTable';
-import { createServer} from "miragejs";
+import { createServer, Model} from "miragejs";
 import Modal from "react-modal"
 
 import { GlobalStyle } from './styles/global';
 import { apiData } from './services/api';
+import { NewTransactionModal } from './components/NewTransactionModal';
 
 
 
@@ -23,10 +24,23 @@ export function App() {
     setIsAddNewTransactionModalOpen(false)
   }
   createServer({
+
+    models : {
+      transaction : Model,
+    },
+
     routes(){
       this.namespace = "api"
       this.get("/transactions", ()=>{
-        return apiData
+        return this.schema.all("transaction")
+      })
+      this.post("/transactions" , (schema , req)=>{
+          const data = JSON.parse(req.requestBody)
+
+          return schema.create('transaction' ,data)
+          
+          
+
       })
     }
   })
@@ -43,12 +57,12 @@ export function App() {
       <Dashboard></Dashboard>
       <TransactionTable></TransactionTable>
 
-      <Modal
+      <NewTransactionModal
         isOpen={isAddNewTransactionModalOpen}
         onRequestClose={handleCloseTransactionModal}
-      >
-          <h1>Isso é um modal based</h1>
-      </Modal>
+      />
+        
+     
       
     </>
   );

@@ -20,6 +20,7 @@ export function TransactionTable() {
 
 
         api.get('transactions').then( res =>  setTransList(res.data))
+        
 
     },[])
     return (
@@ -36,7 +37,7 @@ export function TransactionTable() {
 
                 <tbody>
 
-                    {transList.map( trans => {
+                    {transList? transList.map( trans => {
                         return (
                             <tr>
                                 <td>
@@ -47,7 +48,7 @@ export function TransactionTable() {
                                 <td>{trans.date}</td>
                             </tr>
                         )
-                    })}
+                    }) : ""}
                     <tr>
                         <td>
                             COMPRA MERCADO
