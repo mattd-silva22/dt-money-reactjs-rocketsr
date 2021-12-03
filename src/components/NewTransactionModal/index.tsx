@@ -32,7 +32,7 @@ export function NewTransactionModal(props:ModalProps ){
     function handleSubmitTransaction(event:FormEvent) {
         event.preventDefault();
 
-        if(!title.trim() || !category.trim() || value == 0 ) {
+        if(!title.trim() || !category.trim() || value === 0 ) {
             alert("favor não deixar nada em branco");
             return;
         };
@@ -49,7 +49,7 @@ export function NewTransactionModal(props:ModalProps ){
         }
         clearFormInput()
 
-        console.log(newTransaciton)
+        
 
         api.post("/transactions" , newTransaciton)
 

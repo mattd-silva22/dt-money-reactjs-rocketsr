@@ -5,7 +5,7 @@ import { Container } from "./style";
 interface transactionTypes {
     uid: string;
     type :  'deposit' | 'withdrawal';
-    date :  string;
+    date :  Date;
     amount : number;
     category : string;
     title: string;
@@ -19,7 +19,10 @@ export function TransactionTable() {
     useEffect(()=>{
 
 
-        api.get('transactions').then( res =>  setTransList(res.data))
+        api.get('transactions').then( res => { 
+            setTransList(res.data.transactions) 
+        
+        })
         
 
     },[])
@@ -37,18 +40,20 @@ export function TransactionTable() {
 
                 <tbody>
 
-                    {transList? transList.map( trans => {
+                { transList.map( transaction => {
                         return (
-                            <tr>
+                            <tr key={transaction.uid}>
                                 <td>
-                                    {trans.title}
+                                    {transaction.title}
                                 </td>
-                                <td className={trans.type}> R$ {trans.amount}</td>
-                                <td>{trans.category}</td>
-                                <td>{trans.date}</td>
+                                <td className={transaction.type}> R$ {transaction.amount}</td>
+                                <td>{transaction.category}</td>
+                                <td>{new Intl.DateTimeFormat('pt-BR').format(new Date(transaction.date))}</td>
                             </tr>
                         )
-                    }) : ""}
+                })}
+
+                 
                     <tr>
                         <td>
                             COMPRA MERCADO

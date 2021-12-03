@@ -3,11 +3,9 @@ import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
 import { TransactionTable } from './components/TransactionsTable';
 import { createServer, Model} from "miragejs";
-import Modal from "react-modal"
-
 import { GlobalStyle } from './styles/global';
-import { apiData } from './services/api';
 import { NewTransactionModal } from './components/NewTransactionModal';
+import { apiDataTeste } from './services/api';
 
 
 
@@ -29,6 +27,13 @@ export function App() {
       transaction : Model,
     },
 
+    seeds(server) {
+      server.db.loadData({
+        transactions: apiDataTeste
+
+      })
+    },
+
     routes(){
       this.namespace = "api"
       this.get("/transactions", ()=>{
@@ -37,6 +42,9 @@ export function App() {
       this.post("/transactions" , (schema , req)=>{
           const data = JSON.parse(req.requestBody)
 
+          
+          console.log("foi")
+          console.log(data)
           return schema.create('transaction' ,data)
           
           
