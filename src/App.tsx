@@ -6,6 +6,7 @@ import { createServer, Model} from "miragejs";
 import { GlobalStyle } from './styles/global';
 import { NewTransactionModal } from './components/NewTransactionModal';
 import { apiDataTeste } from './services/api';
+import { TransactionProvider } from './context/TransactionsContext';
 
 
 
@@ -59,7 +60,7 @@ export function App() {
 
 
   return (
-    <>
+    <TransactionProvider>
       <GlobalStyle/>
       <Header OnOpenModal={handleOpenTransactionModal}></Header>
       <Dashboard></Dashboard>
@@ -72,7 +73,7 @@ export function App() {
         
      
       
-    </>
+    </TransactionProvider>
   );
 }
 

@@ -20,11 +20,7 @@ interface transactionTypes {
   
   export const apiDataTeste:transactionTypes[] = [
     {uid: nanoid(6) , date: new Date("2014-02-01") , type : "deposit" , title : 'compra 1' , category : "shop" , amount: 1258.58},
-    {uid : nanoid(6) , date: new Date("2014-02-01"), type : "withdrawal" , title : 'compra 1' , category : "shop" , amount: 1058.58 },
-    {uid : nanoid(6) , date: new Date("2014-02-01"), type : "deposit" , title : 'compra 1' , category : "shop", amount: 987.78 },
-    {uid : nanoid(6) , date: new Date("2014-02-01") , type : "deposit" , title : 'compra 1' , category : "shop", amount: 687.00 },
-    {uid : nanoid(6) , date: new Date("2014-02-01") , type : "withdrawal" , title : 'compra 1' , category : "shop", amount: 158.58 },
-    {uid : nanoid(6) , date: new Date("2014-02-01"), type : "deposit" , title : 'compra 1' , category : "shop", amount: 119.00 },
-    {uid : nanoid(6) , date: new Date("2014-02-01"), type : "withdrawal" , title : 'compra 1' , category : "shop", amount: 18.57 },
+    {uid : nanoid(6) , date: new Date("2015-02-01"), type : "withdrawal" , title : 'compra 2' , category : "shop 3" , amount: 1058.85 },
+
   ]
 

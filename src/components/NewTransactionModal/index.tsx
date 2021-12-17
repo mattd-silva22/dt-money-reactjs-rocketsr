@@ -4,9 +4,10 @@ import closeIMg from "../../assets/close.svg"
 
 import outcomeImg from "../../assets/outcome.svg";
 import incomeImg from "../../assets/income.svg";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { nanoid } from "nanoid";
-import { api } from "../../services/api";
+
+import { TransactionContext } from "../../context/TransactionsContext";
 
 type ModalProps = {
     isOpen : boolean;
@@ -23,13 +24,15 @@ export function NewTransactionModal(props:ModalProps ){
 
     const [ type , setType] = useState("deposit")
 
+    const { createTransaction } = useContext(TransactionContext)
     function clearFormInput() {
 
         setTitle("");
         setCategory("")
         setValue(0)
     }
-    function handleSubmitTransaction(event:FormEvent) {
+
+    async function handleSubmitTransaction(event:FormEvent) {
         event.preventDefault();
 
         if(!title.trim() || !category.trim() || value === 0 ) {
@@ -41,17 +44,20 @@ export function NewTransactionModal(props:ModalProps ){
             uid: nanoid(6),
             type :  type,
             date : new Date() ,
-            amount : value.toFixed(2),
+            amount : value,
             category : category,
             title: title
 
 
         }
-        clearFormInput()
-
         
 
-        api.post("/transactions" , newTransaciton)
+        await createTransaction(newTransaciton)
+        clearFormInput()     
+        props.onRequestClose();
+        
+
+        
 
         
     }
@@ -134,4 +140,8 @@ export function NewTransactionModal(props:ModalProps ){
 
         </Modal>
     )
+}
+
+function onResquestClose() {
+    throw new Error("Function not implemented.");
 }

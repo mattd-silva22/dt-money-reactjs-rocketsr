@@ -2,9 +2,28 @@ import { Container } from './styles';
 import incomeIcon from '../../assets/income.svg';
 import outcomeIcon from '../../assets/outcome.svg';
 import totalIcon from "../../assets/total.svg";
+import { useContext } from 'react';
+import { TransactionContext } from '../../context/TransactionsContext';
 
 export function Summary() {
+    const { transList }  = useContext(TransactionContext)
 
+    const totalDeposity = transList.reduce((acc , transaction)=> {
+        if( transaction.type === "deposit") {
+            return acc + transaction.amount
+        }
+
+        return acc
+    }, 0 );
+
+    const totalOutCome = transList.reduce((acc , transaction)=> {
+        if( transaction.type === "withdrawal") {
+            return acc + transaction.amount
+        }
+
+        return acc
+    }, 0 );
+    const totalBalace =  totalDeposity - totalOutCome
 
     return(
         <Container>
@@ -14,7 +33,7 @@ export function Summary() {
                     <img src={incomeIcon} alt="img entrada" />
                 </header>
 
-                <strong> R$ 1000</strong>
+                <strong> R$ {totalDeposity}</strong>
             </div>
 
             <div>
@@ -23,7 +42,7 @@ export function Summary() {
                     <img src={outcomeIcon} alt="img entrada" />
                 </header>
 
-                <strong> R$ -300</strong>
+                <strong> R$  {totalOutCome}</strong>
             </div>
 
             <div>
@@ -32,7 +51,7 @@ export function Summary() {
                     <img src={totalIcon} alt="img entrada" />
                 </header>
 
-                <strong>R$ 700</strong>
+                <strong>R$ {totalBalace.toFixed(2)}</strong>
             </div>
         </Container>
     )
